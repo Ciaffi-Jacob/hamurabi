@@ -17,6 +17,7 @@ public class Hammurabi {
     private  int howManyPeopledDiedFromPlague;
     private int imm;
     private int harv;
+    private int amountEaten;
     private int totalPeopleDiedByPlague;
     private  int totalHarvest;
     private int totalImmigrants;
@@ -211,7 +212,7 @@ public class Hammurabi {
     }
     public  int grainEatenByRats(int bushels){
         int ratChance = rand.nextInt(10);
-        int amountEaten = 0;
+        amountEaten = 0;
         if (ratChance > 5){
             amountEaten = (rand.nextInt(21) + 10);
         }
@@ -224,7 +225,7 @@ public class Hammurabi {
     public String printSummary(){
 
         totalPeopleDiedByPlague += plagueDeaths(population);
-        this.population -= plagueDeaths(population);
+        this.population -= howManyPeopledDiedFromPlague;
         System.out.println(howManyPeopledDiedFromPlague + " people died by plague.");
 
         totalStarved += starvationDeaths(population,bushelsFedToPeople);
@@ -237,16 +238,16 @@ public class Hammurabi {
         }
 
         totalImmigrants += immigrants(population, acres, bushels);
-        this.population += immigrants(population, acres, bushels);
+        this.population += imm;
         System.out.println(imm + " people immigrated to your land.");
 
         totalHarvest += harvest(acresFarmed);
-        this.bushels += harvest(acresFarmed);
+        this.bushels += harv;
         System.out.println(harv + " bushels harvested.");
 
         totalGrainEatenByRats += grainEatenByRats(bushels);
-        this.bushels -= ((grainEatenByRats(bushels) * bushels) / 100);
-        System.out.println(grainEatenByRats(bushels) + " bushels eaten by rats.");
+        this.bushels -= (amountEaten * bushels) / 100;
+        System.out.println(amountEaten + " bushels eaten by rats.");
 
 
 
