@@ -11,15 +11,12 @@ public class Hammurabi {
     private int population;
     private int currentYear;
     private  int acres;
-    private  int acresOwned;
     private  int acresFarmed;
     private  int bushelsFedToPeople;
     private int howManyPeopleStarved;
     private  int howManyPeopledDiedFromPlague;
     private int imm;
     private int harv;
-    private  int grainInStorage;
-    private int bushelsUsedAsSeed;
     private int totalPeopleDiedByPlague;
     private  int totalHarvest;
     private int totalImmigrants;
@@ -33,7 +30,7 @@ public class Hammurabi {
     }
     public void playGame() {
     initializeGame();
-    while(currentYear <= 10) {
+    while(currentYear <= 1) {
         askHowManyAcresToBuy(price, bushels);
         askHowManyAcresToSell(acres);
         askHowMuchGrainToFeedPeople(bushels);
@@ -225,35 +222,31 @@ public class Hammurabi {
         return price;
     }
     public String printSummary(){
-        //add to finalsumary variable
-        //add harvest : harevst()
-        //add immagrents : immagrents()
-        //
-        //
+
         totalPeopleDiedByPlague += plagueDeaths(population);
         this.population -= plagueDeaths(population);
-        System.out.println(howManyPeopledDiedFromPlague + " people died by plague.\n");
+        System.out.println(howManyPeopledDiedFromPlague + " people died by plague.");
 
         totalStarved += starvationDeaths(population,bushelsFedToPeople);
         this.population -= howManyPeopleStarved;
-        System.out.println(howManyPeopleStarved + " people died by starvation.\n");
+        System.out.println(howManyPeopleStarved + " people died by starvation.");
 
         if(uprising(population, howManyPeopleStarved)) {
             currentYear = 11;
-            System.out.println("Uprising!");
+            System.out.println("\nUprising!\nYou have been overthrown!\n");
         }
 
         totalImmigrants += immigrants(population, acres, bushels);
         this.population += immigrants(population, acres, bushels);
-        System.out.println(imm + " people immigrated to your land.\n");
+        System.out.println(imm + " people immigrated to your land.");
 
         totalHarvest += harvest(acresFarmed);
         this.bushels += harvest(acresFarmed);
-        System.out.println(harv + " bushels harvested.\n");
+        System.out.println(harv + " bushels harvested.");
 
         totalGrainEatenByRats += grainEatenByRats(bushels);
         this.bushels -= ((grainEatenByRats(bushels) * bushels) / 100);
-        System.out.println(grainEatenByRats(bushels) + " bushels eaten by rats.\n");
+        System.out.println(grainEatenByRats(bushels) + " bushels eaten by rats.");
 
 
 
@@ -261,7 +254,11 @@ public class Hammurabi {
         return  null;
     }
     public  String finalSummary(){
-        System.out.println(totalHarvest);
+        System.out.println(totalPeopleDiedByPlague + " people in total died by plague.\n" +
+                            totalStarved + " people in total died by starvation.\n" +
+                        totalImmigrants + " people in total immigrated to your land.\n" +
+                        totalHarvest + " bushels in total were harvested.\n" +
+                        totalGrainEatenByRats + " bushels in total were eaten by rats.\n");
 
         return null;
     }
