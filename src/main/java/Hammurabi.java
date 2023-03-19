@@ -24,7 +24,7 @@ public class Hammurabi {
     }
     public void playGame() {
     initializeGame();
-    while(currentYear <= 1) {
+    while(currentYear <= 2) {
         askHowManyAcresToBuy(price, bushels);
         askHowManyAcresToSell(acresOwned);
         askHowMuchGrainToFeedPeople(bushels);
@@ -75,35 +75,82 @@ public class Hammurabi {
     }
     public int askHowManyAcresToBuy(int price, int bushels){
         int acresBought;
+        System.out.print("The current price for one acre is " + price + " bushels.\n" +
+                "You currently have " + bushels + " bushels and " + acres + " acres.\n" +
+                "How many acres would you like to buy?\n");
         while (true) {
-            System.out.print("The current price for one acre is " + price + " bushels.\n" +
-                    "You currently have " + bushels + " bushels.\n" +
-                    "How many acres would you like to buy?\n");
             try {
                 acresBought = scanner.nextInt();
-                if(acresBought * price <= bushels){
-                    bushels = bushels - (acresBought * price);
-                    acres = acres + acresBought;
-                    break;
-                } else {
-                    System.out.println("You do not have enough bushels.");
+                if(acresBought * price > bushels){
+                    System.out.println("Not enough bushels.");
+                } else if (acresBought < 0) {
+                    System.out.println("Must be positive.");
+                }else if(acresBought == 0){
+
                     break;
                 }
+                else {break;}
             }
             catch (InputMismatchException e) {
                 System.out.println("\"" + scanner.next() + "\" isn't a number!");
                 scanner.next();
             }
         }
-        bushels = bushels - (acresBought * price);
+        this.bushels = (bushels - (acresBought * price));
         acres = acres + acresBought;
         return acresBought;
     }
     public int askHowManyAcresToSell(int acresOwned){
-        return 0;
+        int acresSold;
+        System.out.print("The current value of one acre is " + price + " bushels.\n" +
+                "You currently have " + bushels + " bushels and " + acres + " acres.\n" +
+                "How many acres would you like to sell?\n");
+        while (true) {
+            try {
+                acresSold = scanner.nextInt();
+                if(acresSold > acres){
+                    System.out.println("Not enough acres.");
+                } else if (acres < 0) {
+                    System.out.println("Must be positive.");
+                }else if(acres == 0){
+
+                    break;
+                }
+                else {break;}
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a number!");
+                scanner.next();
+            }
+        }
+        this.bushels = (bushels + (acresSold * price));
+        acres = acres - acresSold;
+        return acresSold;
     }
     public  int askHowMuchGrainToFeedPeople(int bushels){
-        return  0;
+        System.out.print("Citizens need 20 bushels to not starve.\n" +
+                "You currently have " + bushels + " bushels.\n" +
+                "How many bushels would you like to give to citizens?\n");
+        while (true) {
+            try {
+                bushelsFedToPeople = scanner.nextInt();
+                if(bushelsFedToPeople * population > bushels){
+                    System.out.println("Not enough bushels.");
+                } else if (bushelsFedToPeople < 0) {
+                    System.out.println("Must be positive.");
+                }else if(bushelsFedToPeople == 0){
+
+                    break;
+                }
+                else {break;}
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a number!");
+                scanner.next();
+            }
+        }
+        this.bushels = (bushels  - (bushelsFedToPeople * population));
+        return bushelsFedToPeople;
     }
     public  int askHowManyAcresToPlant(int acresOwned, int population, int bushels){
         return  0;
