@@ -40,7 +40,7 @@ public class HammurabiTest {
         assertEquals("In a plague, " + deaths + "% of your people die, not 50%.",
                      50, deaths);
     }*/
-    /*
+
     @Test
     public final void testStarvationDeaths() {
         int deaths = ham.starvationDeaths(100, 1639);
@@ -50,7 +50,7 @@ public class HammurabiTest {
             fail("You starved a negative number of people!");
         }
     }
-*/
+
     @Test
     public final void testUprising() {
         assertTrue("Should have had an uprising!", ham.uprising(1000, 451));

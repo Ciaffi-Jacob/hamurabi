@@ -32,7 +32,7 @@ public class Hammurabi {
         askHowManyAcresToPlant(acres, population, bushels);
 
         plagueDeaths(population);
-        starvationDeath(population, bushelsFedToPeople);
+        starvationDeaths(population, bushelsFedToPeople);
         if (uprising(population, this.howManyPeopleStarved)){
           finalSummary();
         }
@@ -178,7 +178,7 @@ public class Hammurabi {
     public  int plagueDeaths(int population){
         return  0;
     }
-    public  int starvationDeath(int population, int bushelsFedToPeople){
+    public  int starvationDeaths(int population, int bushelsFedToPeople){
         if ((bushelsFedToPeople / 20) <= population) {
             howManyPeopleStarved = (population - (bushelsFedToPeople / 20));
         }
