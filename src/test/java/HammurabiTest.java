@@ -15,7 +15,7 @@ public class HammurabiTest {
     public void setUp() throws Exception {
         ham = new Hammurabi();
     }
-/*
+
     @Test
     public final void testPlagueDeaths1() {
         int number_of_plagues = 0;
@@ -39,7 +39,7 @@ public class HammurabiTest {
         }
         assertEquals("In a plague, " + deaths + "% of your people die, not 50%.",
                      50, deaths);
-    }*/
+    }
 
     @Test
     public final void testStarvationDeaths() {
