@@ -16,6 +16,8 @@ public class Hammurabi {
     private  int bushelsFedToPeople;
     private int howManyPeopleStarved;
     private  int howManyPeopledDiedFromPlague;
+    private int imm;
+    private int harv;
     private  int grainInStorage;
     private int bushelsUsedAsSeed;
     private int totalPeopleDiedByPlague;
@@ -199,7 +201,7 @@ public class Hammurabi {
         }
     }
     public int immigrants(int population, int acres, int bushels){
-        int imm = 0;
+        imm = 0;
         if (howManyPeopleStarved == 0){
             imm = ((20 * acres + bushels) / (100 * population) + 1);
         }
@@ -207,7 +209,7 @@ public class Hammurabi {
         return imm;
     }
     public  int harvest(int acresFarmed){
-        int harv = ((rand.nextInt(6)+1) * acresFarmed);
+        harv = ((rand.nextInt(6)+1) * acresFarmed);
         return harv;
     }
     public  int grainEatenByRats(int bushels){
@@ -230,9 +232,11 @@ public class Hammurabi {
         //
         totalPeopleDiedByPlague += plagueDeaths(population);
         this.population -= plagueDeaths(population);
+        System.out.println(howManyPeopledDiedFromPlague + " people died by plague.\n");
 
         totalStarved += starvationDeaths(population,bushelsFedToPeople);
         this.population -= howManyPeopleStarved;
+        System.out.println(howManyPeopleStarved + " people died by starvation.\n");
 
         if(uprising(population, howManyPeopleStarved)) {
             currentYear = 11;
@@ -241,12 +245,15 @@ public class Hammurabi {
 
         totalImmigrants += immigrants(population, acres, bushels);
         this.population += immigrants(population, acres, bushels);
+        System.out.println(imm + " people immigrated to your land.\n");
 
         totalHarvest += harvest(acresFarmed);
         this.bushels += harvest(acresFarmed);
+        System.out.println(harv + " bushels harvested.\n");
 
         totalGrainEatenByRats += grainEatenByRats(bushels);
-        this.bushels -= (grainEatenByRats(bushels) * bushels);
+        this.bushels -= ((grainEatenByRats(bushels) * bushels) / 100);
+        System.out.println(grainEatenByRats(bushels) + " bushels eaten by rats.\n");
 
 
 
