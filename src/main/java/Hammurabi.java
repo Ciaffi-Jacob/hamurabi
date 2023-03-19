@@ -11,6 +11,7 @@ public class Hammurabi {
     private int population;
     private int currentYear;
     private  int acres;
+    private  int acresFarmed;
     private  int bushelsFedToPeople;
     private int howManyPeopleStarved;
     private  int grainInStorage;
@@ -127,7 +128,7 @@ public class Hammurabi {
         return acresSold;
     }
     public  int askHowMuchGrainToFeedPeople(int bushels){
-        System.out.print("Citizens need 20 bushels to not starve.\n" +
+        System.out.print("Each citizen needs 20 bushels to survive the year.\n" +
                 "You currently have " + bushels + " bushels.\n" +
                 "How many bushels would you like to give to citizens?\n");
         while (true) {
@@ -148,7 +149,7 @@ public class Hammurabi {
                 scanner.next();
             }
         }
-        this.bushels = (bushels  - (bushelsFedToPeople * population));
+        this.bushels = (bushels  - bushelsFedToPeople);
         return bushelsFedToPeople;
     }
     public  int askHowManyAcresToPlant(int acres, int population, int bushels){
@@ -186,7 +187,10 @@ public class Hammurabi {
         return  0;
     }
     public  int starvationDeath(int population, int bushelsFedToPeople){
-        return  0;
+        if ((bushelsFedToPeople / 20) <= population) {
+            population = bushelsFedToPeople / 20;
+        }
+        return population;
     }
     public  boolean uprising(int population, int howManyPeopleStarved){
         return  false;
