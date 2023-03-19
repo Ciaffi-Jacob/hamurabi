@@ -75,7 +75,7 @@ public class HammurabiTest {
             assertTrue("You never have a yield of " + j + " bushels per acre.", yield[j] > 0);
         }
     }
-/*
+
     @Test
     public final void testGrainEatenByRats1() {
         int infestations = 0;
@@ -104,7 +104,7 @@ public class HammurabiTest {
         for (int j = 11; j < 30; j++) {
             assertTrue("Rats never ate " + j + "% of your grain.", counts[j] > 0);
         }
-    }*/
+    }
 
     @Test
     public final void testNewCostOfLand() {

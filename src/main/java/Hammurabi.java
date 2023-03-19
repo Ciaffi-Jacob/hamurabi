@@ -37,11 +37,6 @@ public class Hammurabi {
         askHowMuchGrainToFeedPeople(bushels);
         askHowManyAcresToPlant(acres, population, bushels);
 
-        plagueDeaths(population);
-        starvationDeaths(population, bushelsFedToPeople);
-        uprising(population, this.howManyPeopleStarved);
-        immigrants(population, acres, grainInStorage);
-        grainEatenByRats(bushels);
         newCostOfLand();
 
         printSummary();
@@ -216,7 +211,12 @@ public class Hammurabi {
         return harv;
     }
     public  int grainEatenByRats(int bushels){
-        return 0;
+        int ratChance = rand.nextInt(10);
+        int amountEaten = 0;
+        if (ratChance > 5){
+            amountEaten = (rand.nextInt(21) + 10);
+        }
+        return amountEaten;
     }
     public int newCostOfLand(){
         price = rand.nextInt(7) + 17;
@@ -239,11 +239,14 @@ public class Hammurabi {
             System.out.println("Uprising!");
         }
 
+        totalImmigrants += immigrants(population, acres, bushels);
+        this.population += immigrants(population, acres, bushels);
+
         totalHarvest += harvest(acresFarmed);
         this.bushels += harvest(acresFarmed);
 
-        totalImmigrants += immigrants(population, acres, bushels);
-        this.population += immigrants(population, acres, bushels);
+        totalGrainEatenByRats += grainEatenByRats(bushels);
+        this.bushels -= (grainEatenByRats(bushels) * bushels);
 
 
 
