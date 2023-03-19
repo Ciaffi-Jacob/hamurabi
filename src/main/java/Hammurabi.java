@@ -17,6 +17,10 @@ public class Hammurabi {
     private int howManyPeopleStarved;
     private  int grainInStorage;
     private int bushelsUsedAsSeed;
+    private  int totalHarvest;
+    private int totalImmigrants;
+    private int totalStarved;
+   private  int totalGrainEatenByRats;
 
 
     public  static void  main(String[] args){
@@ -37,7 +41,6 @@ public class Hammurabi {
           finalSummary();
         }
         immigrants(population, acres, grainInStorage);
-        harvest(acres, bushelsUsedAsSeed);
         grainEatenByRats(bushels);
         newCostOfLand();
 
@@ -187,11 +190,15 @@ public class Hammurabi {
     public  boolean uprising(int population, int howManyPeopleStarved){
         return  ((howManyPeopleStarved * 100) / population >= 45);
     }
-    public int immigrants(int population, int acres, int grainInStorage){
-        int imm = ((20 * acres + bushels) / (100 * population) + 1);
+    public int immigrants(int population, int acres, int bushels){
+        int imm = 0;
+        if (howManyPeopleStarved == 0){
+            imm = ((20 * acres + bushels) / (100 * population) + 1);
+        }
+        this.population -= howManyPeopleStarved;
         return imm;
     }
-    public  int harvest(int acresFarmed, int bushelsUsedAsSeed){
+    public  int harvest(int acresFarmed){
         int harv = (rand.nextInt(6)+1 * acresFarmed);
         return harv;
     }
@@ -208,9 +215,17 @@ public class Hammurabi {
         //add immagrents : immagrents()
         //
         //
+
+        totalHarvest += harvest(acresFarmed);
+        bushels += harvest(acresFarmed);
+
+       // totalImmigrants += immigrants(population, acres);
+
+
         return  null;
     }
     public  String finalSummary(){
+        System.out.println(totalHarvest);
         return null;
     }
 }
