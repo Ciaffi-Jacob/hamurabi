@@ -8,7 +8,6 @@ public class Hammurabi {
     Scanner scanner = new Scanner(System.in);
     private int price;
     private int bushels;
-    private int acresOwned;
     private int population;
     private int currentYear;
     private  int acres;
@@ -26,14 +25,14 @@ public class Hammurabi {
     initializeGame();
     while(currentYear <= 2) {
         askHowManyAcresToBuy(price, bushels);
-        askHowManyAcresToSell(acresOwned);
+        askHowManyAcresToSell(acres);
         askHowMuchGrainToFeedPeople(bushels);
-        askHowManyAcresToPlant(acresOwned, population, bushels);
+        askHowManyAcresToPlant(acres, population, bushels);
 
         plagueDeaths(population);
         starvationDeath(population, bushelsFedToPeople);
         uprising(population, howManyPeopleStarved);
-        immigrants(population, acresOwned, grainInStorage);
+        immigrants(population, acres, grainInStorage);
         harvest(acres, bushelsUsedAsSeed);
         grainEatenByRats(bushels);
         newCostOfLand();
@@ -100,7 +99,7 @@ public class Hammurabi {
         acres = acres + acresBought;
         return acresBought;
     }
-    public int askHowManyAcresToSell(int acresOwned){
+    public int askHowManyAcresToSell(int acres){
         int acresSold;
         System.out.print("The current value of one acre is " + price + " bushels.\n" +
                 "You currently have " + bushels + " bushels and " + acres + " acres.\n" +
@@ -152,8 +151,36 @@ public class Hammurabi {
         this.bushels = (bushels  - (bushelsFedToPeople * population));
         return bushelsFedToPeople;
     }
-    public  int askHowManyAcresToPlant(int acresOwned, int population, int bushels){
-        return  0;
+    public  int askHowManyAcresToPlant(int acres, int population, int bushels){
+        int acresToPlant;
+        System.out.print("Citizens can farm 10 acres. And each acre of farming takes 2 bushels.\n" + 
+                        "There are currently " + population + " citizens, " + bushels + " bushels, and " + acres + " acres available.\n" +
+                "How many acres would you like to farm?\n");
+        while (true) {
+            try {
+                acresToPlant = scanner.nextInt();
+                if(acresToPlant > acres){
+                    System.out.println("Not enough acres.");
+                } else if (acresToPlant > population * 10) {
+                    System.out.println("Not enough citizens.");
+                } else if (acresToPlant * 2 > bushels) {
+                    System.out.println("Not enough bushels.");
+                    
+                } else if (acresToPlant < 0) {
+                    System.out.println("Must be positive.");
+                }else if(acresToPlant == 0){
+
+                    break;
+                }
+                else {break;}
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a number!");
+                scanner.next();
+            }
+        }
+        this.bushels = (bushels - (acresToPlant * 2));
+        return  acresToPlant;
     }
     public  int plagueDeaths(int population){
         return  0;
